@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Accounts } from "meteor/accounts-base";
+import { timingSafeEqual } from "crypto";
 
 export default class Signup extends React.Component {
   constructor(props) {
@@ -11,9 +12,15 @@ export default class Signup extends React.Component {
   onSubmit(e) {
     e.preventDefault();
 
-    this.setState({
-      error: "something went wrongs"
+    let email = this.emailInput.value.trim();
+    let password = this.passwordInput.value.trim();
+
+    Accounts.createUser({ email, password }, err => {
+        console.log('Signup callback', err)
     });
+    // this.setState({
+    //   error: "something went wrongs"
+    // });
   }
   render() {
     return (
@@ -23,8 +30,18 @@ export default class Signup extends React.Component {
         {this.state.error ? <p>{this.state.error}</p> : undefined}
 
         <form onSubmit={this.onSubmit.bind(this)}>
-          <input type="email" name="email" placeholder="email@email.com" />
-          <input type="password" name="password" placeholder="Password" />
+          <input
+            type="email"
+            name="email"
+            ref={(input) => {this.emailInput = input}}
+            placeholder="email@email.com"
+          />
+          <input
+            type="password"
+            name="password"
+            ref={ (input) => {this.passwordInput = input}}
+            placeholder="Password"
+          />
           <button>Create Account</button>
         </form>
       </div>
