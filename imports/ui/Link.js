@@ -1,18 +1,11 @@
-import React from 'react'
-import createBrowserHistory from 'history/createBrowserHistory'
-
+import React from "react";
 
 export default class Link extends React.Component {
-    onLogout(){
-        const history = createBrowserHistory()
-        history.push('/')
-    }
-      render(){
-        //   console.log(history.location)
-            return (
-                <div>
-                    <button onClick={this.onLogout.bind(this)}>Log Out</button>
-                </div>
-            )
-      }
+  render() {
+    return (
+      <div>
+        <button onClick={()=>{this.props.history.push('/')}}>Log Out</button>
+      </div>
+    );
+  }
 }
