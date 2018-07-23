@@ -1,6 +1,12 @@
 import React from "react";
 import {Accounts} from 'meteor/accounts-base'
+import {history }from './../routes/AppRouter'
 export default class Link extends React.Component {
+    componentWillMount() {
+        if (!Meteor.userId()) {
+            history.replace('/')
+        }
+    };
     onLogout(){
         Accounts.logout();
     }

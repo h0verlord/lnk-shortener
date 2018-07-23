@@ -1,10 +1,15 @@
 import React from "react";
 import { Accounts } from "meteor/accounts-base";
 import { timingSafeEqual } from "crypto";
-import {Link} from 'react-router-dom'
-
+import { Link } from "react-router-dom";
+import { history } from "./../routes/AppRouter";
 
 export default class Signup extends React.Component {
+  componentWillMount() {
+    if (Meteor.userId()) {
+      history.replace("/links");
+    }
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +23,7 @@ export default class Signup extends React.Component {
     let password = this.passwordInput.value.trim();
 
     Accounts.createUser({ email, password }, err => {
-        console.log('Signup callback', err)
+      console.log("Signup callback", err);
     });
     // this.setState({
     //   error: "something went wrongs"
@@ -35,18 +40,22 @@ export default class Signup extends React.Component {
           <input
             type="email"
             name="email"
-            ref={(input) => {this.emailInput = input}}
+            ref={input => {
+              this.emailInput = input;
+            }}
             placeholder="email@email.com"
           />
           <input
             type="password"
             name="password"
-            ref={ (input) => {this.passwordInput = input}}
+            ref={input => {
+              this.passwordInput = input;
+            }}
             placeholder="Password"
           />
           <button>Create Account</button>
         </form>
-        <Link to='/'>Already have an account?</Link>
+        <Link to="/">Already have an account?</Link>
       </div>
     );
   }

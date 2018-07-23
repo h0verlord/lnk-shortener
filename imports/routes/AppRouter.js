@@ -20,23 +20,22 @@ export const AppRouter = () => (
   </Router>
 );
 
-const unauthenticatedPages = ['/', '/signup']
-const authenticatedPages = ['/links']
+const unauthenticatedPages = ["/", "/signup"];
+const authenticatedPages = ["/links"];
 
-Tracker.autorun(()=>{
+Tracker.autorun(() => {
+  const isAuthenticated = !!Meteor.userId();
+  const pathname = history.location.pathname;
+  const isUnauthenticatedPage = unauthenticatedPages.includes(pathname);
+  const isAuthenticatedPage = authenticatedPages.includes(pathname);
 
-    const isAuthenticated = !!Meteor.userId();
-    const pathname = history.location.pathname;
-    const isUnauthenticatedPage = unauthenticatedPages.includes(pathname);
-    const isAuthenticatedPage = authenticatedPages.includes(pathname);
+  console.log("pathname: ", history.location.pathname);
 
-    console.log('pathname: ', history.location.pathname);
+  if (isUnauthenticatedPage && isAuthenticated) {
+    history.replace("/links");
+  } else if (isAuthenticatedPage && !isAuthenticated) {
+    history.replace("/");
+  }
 
-    if (isUnauthenticatedPage && isAuthenticated) {
-      history.push('/links');
-    } else if (isAuthenticatedPage && !isAuthenticated) {
-      history.push('/');
-    }
-
-    console.log('isAuthenticated', isAuthenticated)
-})
+  console.log("isAuthenticated", isAuthenticated);
+});
