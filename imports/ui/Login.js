@@ -1,12 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Meteor } from "meteor/meteor";
 
 export default class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: ""
+    };
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
     let email = this.emailInput.value.trim();
     let password = this.passwordInput.value.trim();
+
+    Meteor.loginWithPassword({email}, password, (err) =>{
+        console.log('Login callback', err)
+    })
   }
   render() {
     return (

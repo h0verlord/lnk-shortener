@@ -1,6 +1,8 @@
 import React from "react";
 import { Accounts } from "meteor/accounts-base";
 import { timingSafeEqual } from "crypto";
+import {Link} from 'react-router-dom'
+
 
 export default class Signup extends React.Component {
   constructor(props) {
@@ -44,6 +46,7 @@ export default class Signup extends React.Component {
           />
           <button>Create Account</button>
         </form>
+        <Link to='/'>Already have an account?</Link>
       </div>
     );
   }
