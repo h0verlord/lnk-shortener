@@ -23,16 +23,18 @@ export default class Signup extends React.Component {
     let password = this.passwordInput.value.trim();
 
     if (password.length < 9) {
-        return this.setState({error: 'Password must be at least 9 characters long'})
+      return this.setState({
+        error: "Password must be at least 9 characters long"
+      });
     }
 
     Accounts.createUser({ email, password }, err => {
-        if (err) {
-            this.setState({error: err.reason})
-        } else {
-            this.setState({error: ''})
-        }
-    })
+      if (err) {
+        this.setState({ error: err.reason });
+      } else {
+        this.setState({ error: "" });
+      }
+    });
   }
   render() {
     return (

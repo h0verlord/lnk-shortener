@@ -23,8 +23,7 @@ export const AppRouter = () => (
 const unauthenticatedPages = ["/", "/signup"];
 const authenticatedPages = ["/links"];
 
-Tracker.autorun(() => {
-  const isAuthenticated = !!Meteor.userId();
+export const onAuthChange = isAuthenticated => {
   const pathname = history.location.pathname;
   const isUnauthenticatedPage = unauthenticatedPages.includes(pathname);
   const isAuthenticatedPage = authenticatedPages.includes(pathname);
@@ -36,6 +35,4 @@ Tracker.autorun(() => {
   } else if (isAuthenticatedPage && !isAuthenticated) {
     history.replace("/");
   }
-
-  console.log("isAuthenticated", isAuthenticated);
-});
+};
