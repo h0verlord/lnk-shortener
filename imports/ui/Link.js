@@ -1,47 +1,34 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
-import { Accounts } from "meteor/accounts-base";
 import { history } from "./../routes/AppRouter";
-import { Links } from "../api/links";
 
 import LinksList from "./LinksList";
+import PrivateHeader from "./PrivateHeader";
+import AddLink from "./AddLink";
 
-export default class Link extends React.Component {
-  componentWillMount() {
-    if (!Meteor.userId()) {
-      history.replace("/");
-    }
-  }
-  onLogout() {
-    Accounts.logout();
-  }
+export default () => {
+  return (
+    <div>
+      <PrivateHeader title="Your Links" />
+      <LinksList />
+      <AddLink />
+    </div>
+  );
+};
 
-  onSubmit(e) {
-    e.preventDefault();
-    const url = this.urlInput.value.trim();
-    if (url) {
-      Meteor.call("links.insert", url);
-      this.urlInput.value = "";
-    }
-  }
-  render() {
-    return (
-      <div>
-        <h1>Links Page</h1>
-        <button onClick={this.onLogout.bind(this)}>Log Out</button>
-        <LinksList />
-        <p>Add a Link</p>
-        <form onSubmit={this.onSubmit.bind(this)}>
-          <input
-            type="text"
-            ref={url => {
-              this.urlInput = url;
-            }}
-            placeholder="URL"
-          />
-          <button>Add Link</button>
-        </form>
-      </div>
-    );
-  }
-}
+// export default class Link extends React.Component {
+//   componentWillMount() {
+//     if (!Meteor.userId()) {
+//       history.replace("/");
+//     }
+//   }
+//   render() {
+//     return (
+//       <div>
+//         <PrivateHeader title= "Your Links" />
+//         <LinksList />
+//         <AddLink />
+//       </div>
+//     );
+//   }
+// }
