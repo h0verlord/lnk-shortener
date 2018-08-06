@@ -2,13 +2,30 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 
 export default class AddLink extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      url: ""
+    };
+  }
+
   onSubmit(e) {
+    const { url } = this.state;
+
     e.preventDefault();
-    const url = this.urlInput.value.trim();
+
     if (url) {
-      Meteor.call("links.insert", url);
-      this.urlInput.value = "";
+      Meteor.call("links.insert", url, (err, res) => {
+        if (!err) {
+          this.setState({ url: "" });
+        }
+      });
     }
+  }
+  onChange(e) {
+    this.setState({
+      url: e.target.value
+    });
   }
   render() {
     return (
@@ -21,6 +38,8 @@ export default class AddLink extends React.Component {
               this.urlInput = url;
             }}
             placeholder="URL"
+            value={this.state.url}
+            onChange={this.onChange.bind(this)}
           />
           <button>Add Link</button>
         </form>

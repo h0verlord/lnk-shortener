@@ -5,6 +5,7 @@ import { Tracker } from "meteor/tracker";
 import { AppRouter, history, onAuthChange } from "../imports/routes/AppRouter";
 import { Links } from "../imports/api/links";
 import "../imports/startup/simple-schema-config";
+import { Session } from "meteor/session";
 
 Tracker.autorun(() => {
   const isAuthenticated = !!Meteor.userId();
@@ -13,5 +14,6 @@ Tracker.autorun(() => {
 });
 
 Meteor.startup(() => {
+    Session.set('showVisible', true)
   ReactDOM.render(<AppRouter />, document.getElementById("app"));
 });
