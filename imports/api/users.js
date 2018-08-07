@@ -12,8 +12,6 @@ Accounts.validateNewUser(user => {
     }
   }).validate({ email });
 
-  throw new Meteor.Error(400, e.message);
-
   console.log("this is the user", user);
   return true;
 });
