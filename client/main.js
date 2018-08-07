@@ -10,7 +10,6 @@ import { Session } from "meteor/session";
 Tracker.autorun(() => {
   const isAuthenticated = !!Meteor.userId();
   onAuthChange(isAuthenticated);
-  console.log("isAuthenticated", isAuthenticated);
 });
 
 Meteor.startup(() => {
