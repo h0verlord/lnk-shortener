@@ -17,7 +17,7 @@ export default class LinksList extends React.Component {
     this.linksTracker = Tracker.autorun(() => {
       Meteor.subscribe("links");
       const links = Links.find({
-          visible: Session.get('showVisible')
+        visible: Session.get("showVisible")
       }).fetch();
       this.setState({ links });
     });
@@ -27,16 +27,23 @@ export default class LinksList extends React.Component {
     this.linksTracker.stop();
   }
   renderLinksListItems() {
-    return this.state.links.map(link => {
-      const shortUrl = Meteor.absoluteUrl(link._id);
-      return <LinksListItem key={link._id} shortUrl={shortUrl} {...link} />;
-      //   return <p key={link._id}>{link.url}</p>;
-    });
+    if (this.state.links.length == 0) {
+      return (
+        <div className="item">
+          <p className="item__status-message">No links found, please create one first.</p>
+        </div>
+      );
+    } else {
+      return this.state.links.map(link => {
+        const shortUrl = Meteor.absoluteUrl(link._id);
+        return <LinksListItem key={link._id} shortUrl={shortUrl} {...link} />;
+        //   return <p key={link._id}>{link.url}</p>;
+      });
+    }
   }
   render() {
     return (
       <div>
-        <p>Links List</p>
         <div>{this.renderLinksListItems()}</div>
       </div>
     );
