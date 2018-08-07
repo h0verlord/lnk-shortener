@@ -20,7 +20,7 @@ export default class AddLink extends React.Component {
     // if (url) {
     Meteor.call("links.insert", url, (err, res) => {
       if (!err) {
-        this.handleModalClose()
+        this.handleModalClose();
       } else {
         this.setState({ error: err.reason });
       }
@@ -39,6 +39,7 @@ export default class AddLink extends React.Component {
     return (
       <div>
         <button
+          className="button"
           onClick={() => {
             this.setState({ isOpen: true });
           }}

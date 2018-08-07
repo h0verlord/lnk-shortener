@@ -65,7 +65,7 @@ export default class Signup extends React.Component {
               }}
               placeholder="Password"
             />
-            <button>Create Account</button>
+            <button className="button">Create Account</button>
           </form>
           <Link to="/">Already have an account?</Link>
         </div>

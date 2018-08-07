@@ -59,9 +59,9 @@ export default class Login extends React.Component {
               }}
               placeholder="Password"
             />
-            <button>Login</button>
+            <button className="button">Login</button>
           </form>
-          <Link to="/signup">Create an account</Link>
+          <Link to="/signup" >Create an account</Link>
         </div>
       </div>
     );
