@@ -44,10 +44,16 @@ export default class LinksListItem extends React.Component {
       </p>
     );
   }
+  renderPartialLink(){
+      if (this.props.url.length > 40) {
+          return <h2>{this.props.url.slice(0,39)}...</h2>
+      }
+      else return <h2>{this.props.url}</h2>
+  }
   render() {
     return (
       <div className="item">
-        <h2>{this.props.url}</h2>
+        <h2>{this.renderPartialLink()}</h2>
         <p className="item__message">{this.props.shortUrl}</p>
         {this.renderStats()}
         <a
