@@ -3,6 +3,7 @@
     border: 1px solid $item-border-color;
     margin-bottom: $space;
     padding: $space;
+    word-wrap: break-word;
 }
 
 .item__message{
